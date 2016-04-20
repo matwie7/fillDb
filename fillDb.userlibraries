@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Maven: mysql:mysql-connector-java:5.1.6">
+    <archive path="C:/Users/Development/.m2/repository/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar" />
+  </library>
+  <library name="Maven: org.apache.commons:commons-lang3:3.1">
+    <archive path="C:/Users/Development/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar" />
+  </library>
+  <library name="bootstrap">
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/http_maxcdn.bootstrapcdn.com_bootstrap_3.3.6_js_bootstrap.js" />
+  </library>
+  <library name="interact">
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/http_code.interactjs.io_v1.2.6_interact.js" />
+  </library>
+  <library name="jquery">
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/http_ajax.googleapis.com_ajax_libs_jquery_2.2.0_jquery.js" />
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/http_ajax.googleapis.com_ajax_libs_jquery_1.12.0_jquery.js" />
+  </library>
+  <library name="jquery-1.10.2">
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/http_code.jquery.com_jquery-1.10.2.js" />
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/__code.jquery.com_jquery-1.10.2.js" />
+  </library>
+  <library name="jquery-latest">
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/http_code.jquery.com_jquery-latest.js" />
+  </library>
+  <library name="jquery-ui">
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/http_code.jquery.com_ui_1.11.4_jquery-ui.js" />
+    <archive path="C:/Users/Development/.IntelliJIdea2016.1/config/javascript/extLibs/__code.jquery.com_ui_1.11.4_jquery-ui.js" />
+  </library>
+</eclipse-userlibraries>
+
