@@ -5,7 +5,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,15 +13,41 @@ public class DbHandler {
     private Statement stmt = null;
 
     public void insertData(DbModel model) {
+        performStatement(createInsertQuery(model));
+    }
+
+    public void insertData(List<DbModel> data) {
+        data.stream().forEach(i -> {
+            try {
+                stmt.addBatch(createInsertQuery(i));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+        performStatement();
+    }
+
+    private String createInsertQuery(DbModel model) {
         String insertPattern = "INSERT INTO {0} ({1}) VALUES ({2});";
         ImmutablePair<List<String>, List<String>> keysAndValues = model.getKeysAndValues();
         String keys = String.join(", ", keysAndValues.getLeft());
         String values = String.join(", ", keysAndValues.getRight());
 
-        String sql = MessageFormat.format(insertPattern, model.getTableName(), keys, values);
+        return MessageFormat.format(insertPattern, model.getTableName(), keys, values);
+    }
 
+    private void performStatement(String SQLstatement) {
         try {
-            stmt.executeUpdate(sql);
+            stmt.execute(SQLstatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void performStatement() {
+        try {
+            stmt.executeBatch();
+            stmt.clearBatch();
         } catch (SQLException e) {
             e.printStackTrace();
         }

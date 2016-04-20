@@ -1,9 +1,7 @@
 import models.DbModel;
-import models.Klient;
 import models.Pracownik;
 
-
-import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,24 +12,29 @@ import java.util.stream.IntStream;
  */
 public class Main {
     public static void main(String[] args) {
-        doTHings();
+        doThings();
     }
 
 
-    public static void doTHings() {
+    public static void doThings() {
         DbHandler dbHandler = new DbHandler();
         dbHandler.connect();
+        List<DbModel> dbInputData = new ArrayList<>();
         RandomValuesProvider randomValuesProvider = RandomValuesProvider.getInstance();
 
         long start = System.currentTimeMillis();
-        IntStream.range(0, 10000).forEach(i -> {
-//            dbHandler.insertData(new Pracownik(randomValuesProvider.getRandomPesel(), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
+        IntStream.range(0, 15).forEach(i -> {
+            dbHandler.insertData(new Pracownik(randomValuesProvider.getRandomPesel(), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
+//            dbInputData.add(new Pracownik(randomValuesProvider.getRandomPesel(), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
 //            dbHandler.insertData(new Klient(String.valueOf(i), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber()));
-            if (i % 100 == 0)
-                System.out.println(MessageFormat.format("inserted items: {0}, in: {1} miliseconds", i, System.currentTimeMillis() - start));
         });
+        dbHandler.insertData(dbInputData);
+
         System.out.print("duration=" + (System.currentTimeMillis() - start));
 
+
+        //////////////////////////////////////////////////////////////////
+        //select test
         List<DbModel> employeeslist = dbHandler.simpleSelect("pracownik");
 //        List<DbModel> customersList = dbHandler.simpleSelect("klient");
 //
