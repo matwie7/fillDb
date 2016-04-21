@@ -12,6 +12,8 @@ public class RandomValuesProvider {
     private List<String> names;
     private List<String> surnames;
     private List<String> addresses;
+    private List<String> companyNames;
+    private List<String> forestAnimals;
 
     private Random random;
     private static RandomValuesProvider randomValuesProvider = null;
@@ -47,6 +49,22 @@ public class RandomValuesProvider {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        companyNames = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("res/companyNames.txt"))) {
+            for (String line; (line = br.readLine()) != null; )
+                companyNames.add(line);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        forestAnimals = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("res/forestAnimals.txt"))) {
+            for (String line; (line = br.readLine()) != null; )
+                forestAnimals.add(line);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getRandomName() {
@@ -61,9 +79,26 @@ public class RandomValuesProvider {
         return addresses.get(random.nextInt(addresses.size()));
     }
 
+    public String getRandomCompanyName() {
+        return companyNames.get(random.nextInt(companyNames.size()));
+    }
+
+    public String getRandomForestAnimal() {
+        return forestAnimals.get(random.nextInt(forestAnimals.size()));
+    }
+
     public String getRandomPhoneNumber() {
         String phoneNumberPattern = "+{0} {1}";
         return MessageFormat.format(phoneNumberPattern, random.nextInt(80), String.valueOf(100000000 + (int) (Math.random() * (999999999 - 100000000))));
+    }
+
+    public String getRandomGender() {
+        if (random.nextBoolean()) return "M";
+        else return "F";
+    }
+
+    public int getRandomAreaSize() {
+        return random.nextInt(100) + 20;
     }
 
     public float getRandomSalary() {

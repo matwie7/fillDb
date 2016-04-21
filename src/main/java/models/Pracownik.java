@@ -28,6 +28,7 @@ public class Pracownik extends DbModel {
         super(resultSet);
     }
 
+    @Override
     protected void init() {
         tableName = "pracownik";
     }

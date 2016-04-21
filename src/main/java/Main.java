@@ -1,5 +1,4 @@
-import models.DbModel;
-import models.Pracownik;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,13 @@ public class Main {
 
         long start = System.currentTimeMillis();
         IntStream.range(0, 15).forEach(i -> {
-            dbHandler.insertData(new Pracownik(randomValuesProvider.getRandomPesel(), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
-//            dbInputData.add(new Pracownik(randomValuesProvider.getRandomPesel(), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
-//            dbHandler.insertData(new Klient(String.valueOf(i), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber()));
+//            dbHandler.insertData(new Pracownik(randomValuesProvider.getRandomPesel(), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
+            dbInputData.add(new Pracownik(randomValuesProvider.getRandomPesel(), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
+            dbInputData.add(new Klient(String.valueOf(i), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber()));
+            dbInputData.add(new Dostawca(i, randomValuesProvider.getRandomCompanyName(), randomValuesProvider.getRandomAddress()));
+            dbInputData.add(new Zwierze(i, randomValuesProvider.getRandomForestAnimal(), randomValuesProvider.getRandomGender()));
+            dbInputData.add(new Obszar(i, randomValuesProvider.getRandomAreaSize()));
+            //            dbHandler.insertData(new Klient(String.valueOf(i), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber()));
         });
         dbHandler.insertData(dbInputData);
 
