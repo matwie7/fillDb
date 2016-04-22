@@ -44,6 +44,27 @@ public class DbHandler {
         }
     }
 
+    public void clearAllData(){
+        try {
+            stmt.addBatch("DELETE FROM zerowisko;");
+            stmt.addBatch("DELETE FROM przynaleznosc;");
+            stmt.addBatch("DELETE FROM dostawa;");
+            stmt.addBatch("DELETE FROM dostawca;");
+            stmt.addBatch("DELETE FROM klient;");
+            stmt.addBatch("DELETE FROM obszar;");
+            stmt.addBatch("DELETE FROM pracownik;");
+            stmt.addBatch("DELETE FROM szkolka;");
+            stmt.addBatch("DELETE FROM transakcja;");
+            stmt.addBatch("DELETE FROM wycinka;");
+            stmt.addBatch("DELETE FROM zlecenie;");
+            stmt.addBatch("DELETE FROM zwierze;");
+            stmt.executeBatch();
+            stmt.clearBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void performStatement() {
         try {
             stmt.executeBatch();

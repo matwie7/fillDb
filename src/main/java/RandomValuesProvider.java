@@ -1,6 +1,8 @@
 import java.io.*;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +16,7 @@ public class RandomValuesProvider {
     private List<String> addresses;
     private List<String> companyNames;
     private List<String> forestAnimals;
+    private List<String> forestTypes;
 
     private Random random;
     private static RandomValuesProvider randomValuesProvider = null;
@@ -65,6 +68,14 @@ public class RandomValuesProvider {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        forestTypes = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("res/forestTypes.txt"))) {
+            for (String line; (line = br.readLine()) != null; )
+                forestTypes.add(line);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getRandomName() {
@@ -87,6 +98,10 @@ public class RandomValuesProvider {
         return forestAnimals.get(random.nextInt(forestAnimals.size()));
     }
 
+    public String getRandomForestType() {
+        return forestTypes.get(random.nextInt(forestTypes.size()));
+    }
+
     public String getRandomPhoneNumber() {
         String phoneNumberPattern = "+{0} {1}";
         return MessageFormat.format(phoneNumberPattern, random.nextInt(80), String.valueOf(100000000 + (int) (Math.random() * (999999999 - 100000000))));
@@ -103,6 +118,17 @@ public class RandomValuesProvider {
 
     public float getRandomSalary() {
         return (random.nextFloat() * 10) + 5;
+    }
+
+    public int getRandomTreesCount() {
+        return random.nextInt(900) + 100;
+    }
+
+    public String getRandomDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, random.nextInt(80));
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        return format1.format(cal.getTime());
     }
 
     public String getRandomPesel() {

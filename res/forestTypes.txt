@@ -1,0 +1,23 @@
+Bór suchy 
+Bór świeży
+Bór wilgotny 
+Bór bagienny 
+Bór mieszany świeży 
+Bór mieszany wilgotny
+Bór mieszany bagienny
+Las mieszany świeży 
+Las mieszany wilgotny 
+Las mieszany bagienny 
+Las świeży 
+Las wilgotny
+Ols
+Las łęgowy 
+Ols jesionowy
+Bór mieszany wyżynny świeży 
+Las mieszany wyżynny świeży 
+Las wyżynny świeży
+Bór mieszany wyżynny wilgotny
+Las mieszany wyżynny wilgotny
+Las wyżynny wilgotny
+Las łęgowy wyżynny
+Ols jesionowy wyżynny
