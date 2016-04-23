@@ -19,7 +19,6 @@ public class Main {
     public static void doThings() {
         Random random = new Random(System.nanoTime());
         DbHandler dbHandler = new DbHandler();
-        dbHandler.connect();
         List<DbModel> dbInputData = new ArrayList<>();
         RandomValuesProvider randomValuesProvider = RandomValuesProvider.getInstance();
 
@@ -27,11 +26,17 @@ public class Main {
         List<Integer> zwierzeta = new ArrayList<>();
         List<Integer> szkolki = new ArrayList<>();
         List<Integer> dostawcy = new ArrayList<>();
+        List<Integer> wycinki = new ArrayList<>();
+        List<Integer> klienci = new ArrayList<>();
+        List<String> pracownicy = new ArrayList<>();
 
         long start = System.currentTimeMillis();
         IntStream.range(0, 10).forEach(i -> {
-            dbInputData.add(new Pracownik(randomValuesProvider.getRandomPesel(), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
-            dbInputData.add(new Klient(String.valueOf(i), randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber()));
+            String pesel = randomValuesProvider.getRandomPesel();
+            dbInputData.add(new Pracownik(pesel, randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
+            pracownicy.add(pesel);
+            dbInputData.add(new Klient(i, randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber()));
+            klienci.add(i);
             dbInputData.add(new Dostawca(i, randomValuesProvider.getRandomCompanyName(), randomValuesProvider.getRandomAddress()));
             dostawcy.add(i);
             dbInputData.add(new Zwierze(i, randomValuesProvider.getRandomForestAnimal(), randomValuesProvider.getRandomGender()));
@@ -40,19 +45,30 @@ public class Main {
             obszary.add(i);
             dbInputData.add(new Szkolka(i, randomValuesProvider.getRandomTreesCount(), randomValuesProvider.getRandomForestType()));
             szkolki.add(i);
-
         });
 
 
-        IntStream.range(0, 20).forEach(i -> {
+        IntStream.range(0, 2).forEach(i -> {
             dbInputData.add(new Zerowisko(i, zwierzeta.get(random.nextInt(zwierzeta.size())), obszary.get(random.nextInt(obszary.size()))));
             dbInputData.add(new Dostawa(i, szkolki.get(random.nextInt(szkolki.size())), dostawcy.get(random.nextInt(dostawcy.size())), randomValuesProvider.getRandomDate()));
         });
-        szkolki.stream().forEach(i -> dbInputData.add(new Przynaleznosc(i, obszary.get(random.nextInt(obszary.size())))));
+        szkolki.stream().forEach(i -> {
+            dbInputData.add(new Przynaleznosc(i, obszary.get(random.nextInt(obszary.size()))));
+            dbInputData.add(new Wycinka(i, randomValuesProvider.getRandomDate(), random.nextInt(80) + 20, i));
+            wycinki.add(i);
+        });
+
+        wycinki.stream().forEach(i -> {
+            int amount = random.nextInt(50) + 5;
+            int price = random.nextInt(10) + 10;
+            dbInputData.add(new Transakcja(i, i, klienci.get(random.nextInt(klienci.size())), String.valueOf(amount), String.valueOf(price), String.valueOf(amount * price)));
+            dbInputData.add(new Zlecenie(i, pracownicy.get(random.nextInt(pracownicy.size()))));
+            dbInputData.add(new Zlecenie(i, pracownicy.get(random.nextInt(pracownicy.size()))));
+        });
 
 
-        dbHandler.insertData(dbInputData);
-//        dbHandler.clearAllData();
+//        dbHandler.insertData(dbInputData);
+        dbHandler.clearAllData();
 
         System.out.print("duration=" + (System.currentTimeMillis() - start));
 

@@ -9,7 +9,7 @@ public class Klient extends DbModel {
     public final static String ADRES = "adres";
     public final static String NR_TELEFONU = "nr_telefonu";
 
-    public Klient(String pesel, String imie, String nazwisko, String adres, String nr_telefonu) {
+    public Klient(int pesel, String imie, String nazwisko, String adres, String nr_telefonu) {
         super();
         fields.put(PESEL, pesel);
         fields.put(IMIE, imie);

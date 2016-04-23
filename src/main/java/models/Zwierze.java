@@ -3,6 +3,7 @@ package models;
 import java.sql.ResultSet;
 
 /**
+ * Zwierze
  * Created by Development on 21.04.2016.
  */
 public class Zwierze extends DbModel {

@@ -9,8 +9,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DbHandler {
-    private Connection connection = null;
-    private Statement stmt = null;
+    private Statement stmt;
+    private DbConnection dbConnection;
+
+    public DbHandler() {
+        dbConnection = new DbConnection();
+        dbConnection.connect();
+        stmt = dbConnection.getStatement();
+    }
+
+    public void disconnect() {
+        dbConnection.disconnect();
+    }
 
     public void insertData(DbModel model) {
         performStatement(createInsertQuery(model));
@@ -44,19 +54,19 @@ public class DbHandler {
         }
     }
 
-    public void clearAllData(){
+    public void clearAllData() {
         try {
             stmt.addBatch("DELETE FROM zerowisko;");
             stmt.addBatch("DELETE FROM przynaleznosc;");
+            stmt.addBatch("DELETE FROM transakcja;");
+            stmt.addBatch("DELETE FROM zlecenie;");
             stmt.addBatch("DELETE FROM dostawa;");
             stmt.addBatch("DELETE FROM dostawca;");
             stmt.addBatch("DELETE FROM klient;");
+            stmt.addBatch("DELETE FROM wycinka;");
             stmt.addBatch("DELETE FROM obszar;");
             stmt.addBatch("DELETE FROM pracownik;");
             stmt.addBatch("DELETE FROM szkolka;");
-            stmt.addBatch("DELETE FROM transakcja;");
-            stmt.addBatch("DELETE FROM wycinka;");
-            stmt.addBatch("DELETE FROM zlecenie;");
             stmt.addBatch("DELETE FROM zwierze;");
             stmt.executeBatch();
             stmt.clearBatch();
@@ -92,47 +102,6 @@ public class DbHandler {
         return results;
     }
 
-    public void disconnect() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void connect() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("MySQL JDBC Driver not found?");
-            e.printStackTrace();
-            return;
-        }
-
-        System.out.println("MySQL JDBC Driver Registered");
-
-        try {
-            connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/testdb", "mat777", "zaq1@WSX");
-
-        } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
-            return;
-        }
-
-        if (connection != null) {
-            System.out.println("Connection successful!");
-        } else {
-            System.out.println("Failed to make connection!");
-        }
-
-        try {
-            stmt = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     private String getClassName(String tableName) {
         String namePattern = "models.{0}";
