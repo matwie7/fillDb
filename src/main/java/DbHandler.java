@@ -23,27 +23,18 @@ public class DbHandler {
     }
 
     public void insertData(DbModel model) {
-        performStatement(createInsertQuery(model));
+        performStatement(SQLHelper.createInsertQuery(model));
     }
 
     public void insertData(List<DbModel> data) {
-        data.stream().forEach(i -> {
+        data.stream().forEach(record -> {
             try {
-                stmt.addBatch(createInsertQuery(i));
+                stmt.addBatch(SQLHelper.createInsertQuery(record));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         });
         performStatement();
-    }
-
-    private String createInsertQuery(DbModel model) {
-        String insertPattern = "INSERT INTO {0} ({1}) VALUES ({2});";
-        ImmutablePair<List<String>, List<String>> keysAndValues = model.getKeysAndValues();
-        String keys = String.join(", ", keysAndValues.getLeft());
-        String values = String.join(", ", keysAndValues.getRight());
-
-        return MessageFormat.format(insertPattern, model.getTableName(), keys, values);
     }
 
     private void performStatement(String SQLstatement) {

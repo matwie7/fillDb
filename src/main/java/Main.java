@@ -15,7 +15,6 @@ public class Main {
         doThings();
     }
 
-
     public static void doThings() {
         Random random = new Random(System.nanoTime());
         DbHandler dbHandler = new DbHandler();
@@ -31,7 +30,7 @@ public class Main {
         List<String> pracownicy = new ArrayList<>();
 
         long start = System.currentTimeMillis();
-        IntStream.range(0, 10).forEach(i -> {
+        IntStream.range(0, 100000).forEach(i -> {
             String pesel = randomValuesProvider.getRandomPesel();
             dbInputData.add(new Pracownik(pesel, randomValuesProvider.getRandomName(), randomValuesProvider.getRandomSurname(), randomValuesProvider.getRandomAddress(), randomValuesProvider.getRandomPhoneNumber(), randomValuesProvider.getRandomSalary()));
             pracownicy.add(pesel);
@@ -47,11 +46,11 @@ public class Main {
             szkolki.add(i);
         });
 
-
-        IntStream.range(0, 2).forEach(i -> {
+        IntStream.range(0, 200000).forEach(i -> {
             dbInputData.add(new Zerowisko(i, zwierzeta.get(random.nextInt(zwierzeta.size())), obszary.get(random.nextInt(obszary.size()))));
             dbInputData.add(new Dostawa(i, szkolki.get(random.nextInt(szkolki.size())), dostawcy.get(random.nextInt(dostawcy.size())), randomValuesProvider.getRandomDate()));
         });
+
         szkolki.stream().forEach(i -> {
             dbInputData.add(new Przynaleznosc(i, obszary.get(random.nextInt(obszary.size()))));
             dbInputData.add(new Wycinka(i, randomValuesProvider.getRandomDate(), random.nextInt(80) + 20, i));
@@ -66,21 +65,22 @@ public class Main {
             dbInputData.add(new Zlecenie(i, pracownicy.get(random.nextInt(pracownicy.size()))));
         });
 
+        ScriptAsFileSaver.saveAsScript(dbInputData);
+        dbHandler.insertData(dbInputData);
+//        dbHandler.clearAllData();
 
-//        dbHandler.insertData(dbInputData);
-        dbHandler.clearAllData();
-
+        System.out.println("records=" + dbInputData.size());
         System.out.print("duration=" + (System.currentTimeMillis() - start));
 
 
         //////////////////////////////////////////////////////////////////
         //select test
-        List<DbModel> employeeslist = dbHandler.simpleSelect("pracownik");
+//        List<DbModel> employeeslist = dbHandler.simpleSelect("pracownik");
 //        List<DbModel> customersList = dbHandler.simpleSelect("klient");
 //
-        List<DbModel> employeeslista = employeeslist.stream()
-                .filter(e -> (float) e.getValue(Pracownik.STAWKA_GODZINOWA) > 10)
-                .collect(Collectors.toList());
+//        List<DbModel> employeeslista = employeeslist.stream()
+//                .filter(e -> (float) e.getValue(Pracownik.STAWKA_GODZINOWA) > 10)
+//                .collect(Collectors.toList());
 
         dbHandler.disconnect();
     }
