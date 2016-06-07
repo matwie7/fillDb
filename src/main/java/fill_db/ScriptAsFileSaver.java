@@ -1,10 +1,10 @@
-import models.DbModel;
+package fill_db;
+
+import fill_db.models.DbModel;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.List;
-
-import static java.awt.SystemColor.text;
 
 /**
  * Saving queries into file

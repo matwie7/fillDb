@@ -1,4 +1,4 @@
-package models;
+package fill_db.models;
 
 import java.sql.ResultSet;
 
@@ -15,9 +15,8 @@ public class Transakcja extends DbModel {
     public final static String SUMA_BRUTTO = "suma_brutto";
 
 
-    public Transakcja(int idTransakcji, int idWycinki, int peselKlienta, String iloscDrewna, String cenaZaM3, String sumaBrutto) {
+    public Transakcja(int idWycinki, String peselKlienta, String iloscDrewna, String cenaZaM3, String sumaBrutto) {
         super();
-        fields.put(ID_TRANSAKCJI, idTransakcji);
         fields.put(ID_WYCINKI, idWycinki);
         fields.put(PESEL_KLIENTA, peselKlienta);
         fields.put(ILOSC_DREWNA, iloscDrewna);

@@ -1,6 +1,4 @@
-package models;
-
-import com.sun.xml.internal.bind.v2.model.core.ID;
+package fill_db.models;
 
 import java.sql.ResultSet;
 

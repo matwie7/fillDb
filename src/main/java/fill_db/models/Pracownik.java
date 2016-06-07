@@ -1,4 +1,4 @@
-package models;
+package fill_db.models;
 
 import java.sql.ResultSet;
 

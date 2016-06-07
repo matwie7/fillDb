@@ -1,6 +1,7 @@
-package models;
+package fill_db.models;
 
 import java.sql.ResultSet;
+import java.util.Map;
 
 /**
  *
@@ -22,6 +23,10 @@ public class Dostawa extends DbModel {
 
     public Dostawa(ResultSet resultSet) {
         super(resultSet);
+    }
+
+    public Dostawa(Map fields) {
+        super(fields);
     }
 
     @Override

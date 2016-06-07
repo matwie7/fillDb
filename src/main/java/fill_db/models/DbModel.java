@@ -1,4 +1,4 @@
-package models;
+package fill_db.models;
 
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 /**
  * DbModel abstract class
@@ -25,6 +24,10 @@ public abstract class DbModel {
     public DbModel() {
         fields = new HashMap<>();
         init();
+    }
+
+    public DbModel(Map fields){
+        this.fields = fields;
     }
 
     public DbModel(ResultSet resultSet) {

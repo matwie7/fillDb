@@ -1,5 +1,6 @@
-import models.DbModel;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+package fill_db;
+
+import fill_db.models.DbModel;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -94,8 +95,8 @@ public class DbHandler {
     }
 
 
-    private String getClassName(String tableName) {
-        String namePattern = "models.{0}";
+    public String getClassName(String tableName) {
+        String namePattern = "fill_db.models.{0}";
         char[] string = tableName.toCharArray();
         string[0] = Character.toUpperCase(string[0]);
         return MessageFormat.format(namePattern, new String(string));

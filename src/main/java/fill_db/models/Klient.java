@@ -1,6 +1,7 @@
-package models;
+package fill_db.models;
 
 import java.sql.ResultSet;
+import java.util.Map;
 
 public class Klient extends DbModel {
     public final static String PESEL = "pesel";
@@ -9,7 +10,7 @@ public class Klient extends DbModel {
     public final static String ADRES = "adres";
     public final static String NR_TELEFONU = "nr_telefonu";
 
-    public Klient(int pesel, String imie, String nazwisko, String adres, String nr_telefonu) {
+    public Klient(String pesel, String imie, String nazwisko, String adres, String nr_telefonu) {
         super();
         fields.put(PESEL, pesel);
         fields.put(IMIE, imie);
@@ -23,7 +24,11 @@ public class Klient extends DbModel {
         tableName = "klient";
     }
 
-    public Klient(ResultSet resultSet){
+    public Klient(ResultSet resultSet) {
         super(resultSet);
+    }
+
+    public Klient(Map fields) {
+        super(fields);
     }
 }

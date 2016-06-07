@@ -1,10 +1,13 @@
-import models.DbModel;
+package fill_db;
+
+import fill_db.models.DbModel;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.text.MessageFormat;
 import java.util.List;
 
 /**
+ *
  * Created by Development on 27.04.2016.
  */
 public class SQLHelper {
